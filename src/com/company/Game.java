@@ -5,11 +5,10 @@ import java.util.Random;
 import java.util.Scanner;
 
 public class Game{
-    public int numGame = 0;
+
     static ArrayList<String> games = new ArrayList<>();
 
     public Game(){
-        numGame++;
     }
 
 
@@ -33,9 +32,8 @@ public class Game{
                 System.out.println("thanks for playing, BYE!");
                 break;
             default :
-                System.out.println("input play, history or quit. Thanks :)");
+                System.out.println("Invalid input. Enter play, history or quit. Thanks :)");
                 runGame();
-                return;
         }
     }
 
@@ -72,7 +70,7 @@ public class Game{
             System.out.println(playerTwo.getPlayerName() + ": Type in 'rock' 'paper' or 'scissors' to play.");
             String player2Chose = scanner.nextLine();
             player2Chose = player2Chose.toUpperCase();
-            String result = "";
+            String result;
             if (player1Chose.equals(player2Chose)) {
                 System.out.println("tie!");
                 result = "Tie Game between " +playerOne.getPlayerName() + " & " + playerTwo.getPlayerName();
@@ -102,7 +100,7 @@ public class Game{
             player1Chose = player1Chose.toUpperCase();
             Random cpu = new Random();
             int number = cpu.nextInt(2);
-            String cpuChose = "";
+            String cpuChose;
             if (number == 0) {
                 cpuChose = "ROCK";
             }
@@ -112,23 +110,21 @@ public class Game{
                 cpuChose = "SCISSORS";
             }
             System.out.println("Mr. Computer choose: " + cpuChose);
-            String result = "";
+            String result;
             if (player1Chose.equals(cpuChose)) {
-                System.out.println("tie!");
+                System.out.println("tie! Want to play again?" +"\n\n");
                 result = "Tie Game between " +playerOne.getPlayerName() + " & Mr. Computer";
                 games.add(result);
             } else if (player1Chose.equals("SCISSORS") && cpuChose.equals("PAPER") ||
                     player1Chose.equals("PAPER") && cpuChose.equals("ROCK") ||
                     player1Chose.equals("ROCK") && cpuChose.equals("SCISSORS")) {
-                System.out.println(playerOne.getPlayerName() + " wins!");
+                System.out.println(playerOne.getPlayerName() + " wins!" +"\n"+"Want to play again?" +"\n\n");
                 result = "Winner: " + playerOne.getPlayerName() + ", Loser: & Mr. Computer";
                 games.add(result);
-                return;
             } else {
-                System.out.println("Mr. Computer win!");
+                System.out.println("Mr. Computer win!" +"\n"+"Want to play again?" +"\n\n");
                 result = "Winner: & Mr. Computer, Loser: " + playerOne.getPlayerName();
                 games.add(result);
-                return;
             }
         }
 }
