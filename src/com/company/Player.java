@@ -1,6 +1,6 @@
 package com.company;
 
-public class Player {
+public class Player extends Game{
     String playerName;
 
     public Player(String playerName) {
