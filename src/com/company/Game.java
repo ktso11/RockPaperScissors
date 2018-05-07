@@ -1,5 +1,9 @@
 package com.company;
 
+import org.omg.PortableServer.CurrentPackage.NoContext;
+
+import javax.naming.NotContextException;
+import java.sql.SQLOutput;
 import java.util.ArrayList;
 import java.util.Random;
 import java.util.Scanner;
@@ -10,7 +14,6 @@ public class Game{
 
     public Game(){
     }
-
 
     public void runGame() {
         Scanner scanner = new Scanner(System.in);
@@ -44,12 +47,10 @@ public class Game{
         if (opponent.equals("PLAYER2")) {
             playPlayer2();
             runGame();
-            return;
         }
         if (opponent.equals("CPU")) {
             playCPU();
             runGame();
-            return;
         } else {
             System.out.println("invalid input");
             runGame();
@@ -60,9 +61,28 @@ public class Game{
             Scanner scanner = new Scanner(System.in);
             System.out.println("What is player1's name?");
             String name = scanner.nextLine();
+            try {
+                if (name.equals(""))
+                    throw new NotContextException();
+            }
+            catch (NotContextException exception){
+                System.out.println(exception);
+                System.out.println("Enter a name please!");
+                name = scanner.nextLine();
+            }
             Player playerOne = new Player(name);
             System.out.println("What is player2's name?");
             String player2 = scanner.nextLine();
+
+            try {
+                if (player2.equals(""))
+                    throw new NotContextException();
+            }
+            catch (NotContextException exception){
+                System.out.println(exception);
+                System.out.println("Enter a name please!");
+                player2 = scanner.nextLine();
+            }
             Player playerTwo = new Player(player2);
             System.out.println(playerOne.getPlayerName() + ": Type in 'rock' 'paper' or 'scissors' to play.");
             String player1Chose = scanner.nextLine();
@@ -94,6 +114,15 @@ public class Game{
             Scanner scanner = new Scanner(System.in);
             System.out.println("What is player1's name?");
             String name = scanner.nextLine();
+            try {
+                if (name.equals(""))
+                    throw new NotContextException();
+            }
+            catch (NotContextException exception){
+                System.out.println(exception);
+                System.out.println("Enter a name please!");
+                name = scanner.nextLine();
+            }
             Player playerOne = new Player(name);
             System.out.println(playerOne.getPlayerName() + ": Type in 'rock' 'paper' or 'scissors' to play." );
             String player1Chose = scanner.nextLine();
@@ -113,17 +142,17 @@ public class Game{
             String result;
             if (player1Chose.equals(cpuChose)) {
                 System.out.println("tie! Want to play again?" +"\n\n");
-                result = "Tie Game between " +playerOne.getPlayerName() + " & Mr. Computer";
+                result = "Tie Game between " +playerOne.getPlayerName() + " Mr. Computer";
                 games.add(result);
             } else if (player1Chose.equals("SCISSORS") && cpuChose.equals("PAPER") ||
                     player1Chose.equals("PAPER") && cpuChose.equals("ROCK") ||
                     player1Chose.equals("ROCK") && cpuChose.equals("SCISSORS")) {
                 System.out.println(playerOne.getPlayerName() + " wins!" +"\n"+"Want to play again?" +"\n\n");
-                result = "Winner: " + playerOne.getPlayerName() + ", Loser: & Mr. Computer";
+                result = "Winner: " + playerOne.getPlayerName() + ", Loser: Mr. Computer";
                 games.add(result);
             } else {
                 System.out.println("Mr. Computer win!" +"\n"+"Want to play again?" +"\n\n");
-                result = "Winner: & Mr. Computer, Loser: " + playerOne.getPlayerName();
+                result = "Winner: Mr. Computer, Loser: " + playerOne.getPlayerName();
                 games.add(result);
             }
         }
